@@ -92,9 +92,25 @@ forwardstepwise <- function(data, response, predictors) {
 
 ls = forwardstepwise(data =mtcars, response = "mpg", predictors = c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
 par(mfrow=c(1,3))
-plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", col=ifelse(ls$RSSvector %in% min(ls$RSSvector), 'red', 'blue'))
-plot(ls$BICvector, main = "", xlab = "Number of predictors", ylab = "BIC", col=ifelse(ls$BICvector %in% min(ls$BICvector), 'red', 'blue'))
-plot(ls$AdjustR2vector, xlab = "Number of predictors", ylab = "Adjusted R^2", col=ifelse(ls$AdjustR2vector %in% max(ls$AdjustR2vector), 'red', 'blue'))
+plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", 
+     col='blue', 
+     type = "l")
+points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X" )
+
+plot(ls$BICvector, 
+     main = "", 
+     xlab = "Number of predictors", 
+     ylab = "BIC", 
+     col='blue', 
+     type = "l")
+points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X")
+
+plot(ls$AdjustR2vector, 
+     xlab = "Number of predictors", 
+     ylab = "Adjusted R^2", 
+     col='blue', 
+     type = "l")
+points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X" )
 
 
 ###SIMULATION####
@@ -115,6 +131,23 @@ forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
 ls <- forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
 
 par(mfrow=c(1,3))
-plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", col=ifelse(ls$RSSvector %in% min(ls$RSSvector), 'red', 'blue'))
-plot(ls$BICvector, main = "", xlab = "Number of predictors", ylab = "BIC", col=ifelse(ls$BICvector %in% min(ls$BICvector), 'red', 'blue'))
-plot(ls$AdjustR2vector, xlab = "Number of predictors", ylab = "Adjusted R^2", col=ifelse(ls$AdjustR2vector %in% max(ls$AdjustR2vector), 'red', 'blue'))
+plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", 
+     col='blue', 
+     type = "l")
+points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X" )
+
+plot(ls$BICvector, 
+     main = "", 
+     xlab = "Number of predictors", 
+     ylab = "BIC", 
+     col='blue', 
+     type = "l")
+points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X")
+
+plot(ls$AdjustR2vector, 
+     xlab = "Number of predictors", 
+     ylab = "Adjusted R^2", 
+     col='blue', 
+     type = "l")
+points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X" )
+
