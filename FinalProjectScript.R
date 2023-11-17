@@ -90,7 +90,11 @@ forwardstepwise <- function(data, response, predictors) {
 	return(list(selected = selected, best_model = best_model, BICvector = BICvector, AdjustR2vector = Ar2vector, RSSvector = rssvector))
 }
 
-forwardstepwise(data =mtcars, response = "mpg", predictors = c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
+ls = forwardstepwise(data =mtcars, response = "mpg", predictors = c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
+par(mfrow=c(1,3))
+plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", col=ifelse(ls$RSSvector %in% min(ls$RSSvector), 'red', 'blue'))
+plot(ls$BICvector, main = "", xlab = "Number of predictors", ylab = "BIC", col=ifelse(ls$BICvector %in% min(ls$BICvector), 'red', 'blue'))
+plot(ls$AdjustR2vector, xlab = "Number of predictors", ylab = "Adjusted R^2", col=ifelse(ls$AdjustR2vector %in% max(ls$AdjustR2vector), 'red', 'blue'))
 
 
 ###SIMULATION####
@@ -110,6 +114,7 @@ forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
 
 ls <- forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
 
-par(mfrow=c(1,2))
-plot(ls$BICvector)
-plot(ls$AdjustR2vector)
+par(mfrow=c(1,3))
+plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", col=ifelse(ls$RSSvector %in% min(ls$RSSvector), 'red', 'blue'))
+plot(ls$BICvector, main = "", xlab = "Number of predictors", ylab = "BIC", col=ifelse(ls$BICvector %in% min(ls$BICvector), 'red', 'blue'))
+plot(ls$AdjustR2vector, xlab = "Number of predictors", ylab = "Adjusted R^2", col=ifelse(ls$AdjustR2vector %in% max(ls$AdjustR2vector), 'red', 'blue'))
