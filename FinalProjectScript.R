@@ -104,3 +104,9 @@ dat <- rnorm_multi(n = 10000,
 dat$y <-1000*dat$x1+dat$x2+dat$x3+dat$x4+dat$x5+dat$x6+dat$x7+dat$x8+dat$x9+0*dat$x10+rnorm(10000, 5, 2)
 
 forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
+
+ls <- forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
+
+par(mfrow=c(1,2))
+plot(ls$BICvector)
+plot(ls$AdjustR2vector)
