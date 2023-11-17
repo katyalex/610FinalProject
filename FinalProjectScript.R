@@ -52,7 +52,9 @@ forwardstepwise <- function(data, response, predictors) {
 	
 	# create a vector for Adj. R2s
 	Ar2vector <- numeric(length(predvars))
-	
+
+	# create a vector for Adj. R2s
+	rssvector <- numeric(length(predvars))
 	while (length(predvars) > 0) {
 		# Create a for loop to cycle through all variables, then keep the one
 		# that lowers RSS the most
@@ -70,6 +72,7 @@ forwardstepwise <- function(data, response, predictors) {
 				best_rss <- rss
 				BICvector[length(selected) + 1] <- BIC(curr_model)
 				Ar2vector[length(selected) + 1] <- summary(curr_model)$adj.r.squared
+				rssvector[length(selected) + 1] <- rss
 			}
 		}
 		
@@ -84,7 +87,7 @@ forwardstepwise <- function(data, response, predictors) {
 		}
 	}
 	
-	return(list(selected = selected, best_model = best_model, BICvector = BICvector, AdjustR2vector = Ar2vector))
+	return(list(selected = selected, best_model = best_model, BICvector = BICvector, AdjustR2vector = Ar2vector, RSSvector = rssvector))
 }
 
 forwardstepwise(data =mtcars, response = "mpg", predictors = c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
