@@ -162,5 +162,9 @@ test_that(desc = "test function", code = {
   expect_that( object = length(ls$BICvector), condition = equals(10));
   expect_that( object = length(ls$RSSvector), condition = equals(10));
   expect_that( object = class(ls$best_model), condition = equals("lm")) 
+  expect_that(object = is.numeric(ls$RSSvector), condition = equals(TRUE))
+  expect_that(object = is.numeric(ls$BICvector), condition = equals(TRUE))
+  expect_that(object = is.numeric(ls$AdjustR2vector), condition = equals(TRUE))
+  
 })
 
