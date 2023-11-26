@@ -95,7 +95,7 @@ par(mfrow=c(1,3))
 plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", 
      col='blue', 
      type = "l")
-points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X" )
+points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X", col = "red", lwd=10)
 
 plot(ls$BICvector, 
      main = "", 
@@ -103,18 +103,18 @@ plot(ls$BICvector,
      ylab = "BIC", 
      col='blue', 
      type = "l")
-points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X")
+points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X",  col = "red", lwd=10)
 
 plot(ls$AdjustR2vector, 
      xlab = "Number of predictors", 
      ylab = "Adjusted R^2", 
      col='blue', 
      type = "l")
-points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X" )
+points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X",  col = "red", lwd=10)
 
 
 ###SIMULATION####
-install.packages("faux")
+#install.packages("faux")
 library(faux)
 dat <- rnorm_multi(n = 10000, 
                    mu = c(0, 20, 20, 5, 10, 15, 2, 3, 5, 6),
@@ -134,7 +134,7 @@ par(mfrow=c(1,3))
 plot(ls$RSSvector, xlab = "Number of predictors", ylab = "RSS", 
      col='blue', 
      type = "l")
-points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X" )
+points(which(ls$RSSvector %in% min(ls$RSSvector)),min(ls$RSSvector), pch = "X",  col = "red", lwd=10)
 
 plot(ls$BICvector, 
      main = "", 
@@ -142,12 +142,25 @@ plot(ls$BICvector,
      ylab = "BIC", 
      col='blue', 
      type = "l")
-points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X")
+points(which(ls$BICvector %in% min(ls$BICvector)),min(ls$BICvector), pch = "X",  col = "red", lwd=10)
 
 plot(ls$AdjustR2vector, 
      xlab = "Number of predictors", 
      ylab = "Adjusted R^2", 
      col='blue', 
      type = "l")
-points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X" )
+points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X",  col = "red", lwd=10)
+
+
+library(testthat)
+
+test_that(desc = "test function", code = {
+
+  ls <- forwardstepwise(data =dat, response = "y", predictors = colnames(dat[, -11]))
+  
+  # Test that the result is the correct value
+  expect_that( object = length(ls$BICvector), condition = equals(10));
+  expect_that( object = length(ls$RSSvector), condition = equals(10));
+  expect_that( object = class(ls$best_model), condition = equals("lm")) 
+})
 
