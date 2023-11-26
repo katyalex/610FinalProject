@@ -152,6 +152,8 @@ plot(ls$AdjustR2vector,
 points(which(ls$AdjustR2vector %in% max(ls$AdjustR2vector)),max(ls$AdjustR2vector), pch = "X",  col = "red", lwd=10)
 
 
+###TESTS####
+
 library(testthat)
 
 test_that(desc = "test function", code = {
